@@ -1,0 +1,4 @@
+TO BE DONE BEFORE ACTUAL IMPLEMENTATION STARTS
+1. Finalise U.I design and implement
+2. Test out working with an SQL database and linking.
+3. Test out some basic java programs and variable manipulation working with the web interface.
