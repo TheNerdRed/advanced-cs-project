@@ -12,17 +12,17 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
  
 public class CardLayoutDemo implements ItemListener {
-	
-	// "Page" name Strings
-	final static String HOMEPANEL = "Home";
+    
+    // "Page" name Strings
+    final static String HOMEPANEL = "Home";
     final static String GAMEPANEL = "Game";
     final static String LEADERBOARDPANEL = "Leaderboard";
     
     // Window sizes
     final static int extraWindowWidth = 1000;
     final static int extraWindowHeight = 750;
-	
-	// Overall cards JPanel
+    
+    // Overall cards JPanel
     JPanel cards; 
     
     // Separate page JPanels
@@ -33,7 +33,7 @@ public class CardLayoutDemo implements ItemListener {
     
      
     public void addComponentToPane(Container pane) throws IOException {
-    	
+        
         //Put the JComboBox in a JPanel to get a nicer look.
         JPanel comboBoxPane = new JPanel(); //use FlowLayout
         String comboBoxItems[] = { HOMEPANEL, GAMEPANEL, LEADERBOARDPANEL };
@@ -59,25 +59,25 @@ public class CardLayoutDemo implements ItemListener {
     
     // Setup all of the content for the "Home" page
     public void setupHomePanel() throws IOException {
-    	
-    	JButton button1 = new JButton("Button 1");
-    	JButton button2 = new JButton("Button 2");
-    	JButton button3 = new JButton("Button 3");
-    	
-    	BufferedImage alterEgoShocked = ImageIO.read(new File("AlterEgo/alterego.png"));
-    	
-    	JLabel shockedPicLabel = new JLabel(new ImageIcon(alterEgoShocked));
-    	
-    	// X, Y. Width, Height
-    	shockedPicLabel.setBounds(590, 150, 550, 300);
-    	
-    	button1.setBounds(250, 100, 250, 40);
-    	button2.setBounds(280, 100, 250, 40);
-    	button3.setBounds(340, 100, 250, 40);
-    	
+        
+        JButton button1 = new JButton("Button 1");
+        JButton button2 = new JButton("Button 2");
+        JButton button3 = new JButton("Button 3");
+        
+        BufferedImage alterEgoShocked = ImageIO.read(new File("AlterEgo/alterego.png"));
+        
+        JLabel shockedPicLabel = new JLabel(new ImageIcon(alterEgoShocked));
+        
+        // X, Y. Width, Height
+        shockedPicLabel.setBounds(590, 150, 550, 300);
+        
+        button1.setBounds(250, 100, 250, 40);
+        button2.setBounds(280, 100, 250, 40);
+        button3.setBounds(340, 100, 250, 40);
+        
         //Create the "cards".
         card1 = new JPanel() {
-        	// Make the window 1000x1000
+            // Make the window 1000x1000
             public Dimension getPreferredSize() {
                 Dimension size = super.getPreferredSize();
                 size.width += extraWindowWidth;
@@ -98,13 +98,13 @@ public class CardLayoutDemo implements ItemListener {
     
     // Setup all of the content for the "Game" page.
     public void setupGamePanel() throws IOException {
-    	card2 = new JPanel();
+        card2 = new JPanel();
         card2.add(new JTextField("TextField", 20));
     }
     
     // Setup all of the content for the "Leaderboard" page
     public void setupLeaderboardPanel() throws IOException {
-    	card3 = new JPanel();
+        card3 = new JPanel();
         card3.add(new JButton("Button 4"));
         card3.add(new JButton("Button 5"));
         card3.add(new JButton("Button 6"));
@@ -157,11 +157,11 @@ public class CardLayoutDemo implements ItemListener {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
-					createAndShowGUI();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                    createAndShowGUI();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
     }

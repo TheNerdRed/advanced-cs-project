@@ -149,7 +149,6 @@ public class QuizGame {
     alterEgoPicture = ImageIO.read(new File("AlterEgo/happy.jpg"));
     
     alterEgoLabel = new JLabel(new ImageIcon(alterEgoPicture));
-      
   }
   
 } // end QuizGame
