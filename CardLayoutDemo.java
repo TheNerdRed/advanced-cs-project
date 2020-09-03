@@ -19,8 +19,8 @@ public class CardLayoutDemo implements ItemListener {
     final static String LEADERBOARDPANEL = "Leaderboard";
     
     // Window sizes
-    final static int extraWindowWidth = 1000;
-    final static int extraWindowHeight = 750;
+    final static int extraWindowWidth = 1900;
+    final static int extraWindowHeight = 950;
     
     // Overall cards JPanel
     JPanel cards; 
@@ -29,9 +29,7 @@ public class CardLayoutDemo implements ItemListener {
     JPanel card1;
     JPanel card2;
     JPanel card3;
-    
-    
-     
+   
     public void addComponentToPane(Container pane) throws IOException {
         
         //Put the JComboBox in a JPanel to get a nicer look.
@@ -60,6 +58,19 @@ public class CardLayoutDemo implements ItemListener {
     // Setup all of the content for the "Home" page
     public void setupHomePanel() throws IOException {
         
+          // JFrame Bounds only need width, height
+          int[] frameBounds = {1700, 850};
+        
+          // Int arrays for bounds of each element. Each bound is X, Y, Width and Height
+          int[] alterEgoBounds = {510, 70, 650, 400};
+        
+          int[] homeButtonBounds = {15, 150, 250, 40};
+          int[] leaderboardButtonBounds = {15, 250, 250, 40};
+          
+          int[] scoreCounterBounds = {38, 50, 200, 100};
+        
+          int[] screenTextBounds = {510, 500, 650, 200};
+        
         JButton button1 = new JButton("Button 1");
         JButton button2 = new JButton("Button 2");
         JButton button3 = new JButton("Button 3");
@@ -71,7 +82,7 @@ public class CardLayoutDemo implements ItemListener {
         // X, Y. Width, Height
         shockedPicLabel.setBounds(590, 150, 550, 300);
         
-        button1.setBounds(250, 100, 250, 40);
+        button1.setBounds(350, 100, 250, 40);
         button2.setBounds(280, 100, 250, 40);
         button3.setBounds(340, 100, 250, 40);
         
@@ -92,7 +103,7 @@ public class CardLayoutDemo implements ItemListener {
         card1.add(new JButton("Button 1"));
         card1.add(new JButton("Button 2"));
         card1.add(new JButton("Button 3"));
-        card1.add(shockedPicLabel);
+        //card1.add(shockedPicLabel);
         
      }
     
