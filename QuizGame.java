@@ -18,47 +18,42 @@ import java.io.*;
 public class QuizGame {
 
   // GLOBAL PROGRAM VARIABLES
-  int score = 10;
+  int score = 0;
+  
+  // JFrame Bounds only need width, height
+  int[] frameBounds = {1700, 850};
 
   // Int arrays for bounds of each element. Each bound is X, Y, Width and Height
-  int[] alterEgoBounds = {190, 70, 450, 400};
+  int[] alterEgoBounds = {510, 70, 650, 400};
 
-  int[] buttonOneBounds = {250, 100, 250, 40};
-  int[] buttonTwoBounds = {250, 450, 250, 40};
+  int[] homeButtonBounds = {15, 150, 250, 40};
+  int[] leaderboardButtonBounds = {15, 250, 250, 40};
+  
+  int[] scoreCounterBounds = {38, 50, 200, 100};
 
-  int[] screenTextBounds = {250, 500, 250, 200};
-
-  int[] scoreCounterBounds = {50, 50, 100, 100};
-
-  // JFrame Bounds only need width, height
-  int[] frameBounds = {800, 650};
-
-
-  // JAVA SWING COMPONENT VARIABLES
+  int[] screenTextBounds = {510, 500, 650, 200};
 
   // JFrame
   static JFrame f;
 
   // JButton definitions
-  static JButton b;
-  static JButton b2;
+  static JButton homeButton;
+  static JButton leaderboardButton;
+  static JButton dialogueButton;
 
   // JTextField
   // static JTextField screenText;
 
   // JLabel
-  JLabel shockedPicLabel;
-  JLabel happyPicLabel;
-  JLabel shyPicLabel;
+  JLabel alterEgoLabel;
 
   JLabel screenText;
 
   JLabel scoreCounter;
 
   // BufferedImage
-  BufferedImage alterEgoShocked;
+  BufferedImage alterEgoPicture;
   BufferedImage alterEgoHappy;
-  BufferedImage alterEgoShy;
   
   /**
   * Main process method to be ran for the QuizGame.
@@ -72,30 +67,14 @@ public class QuizGame {
     String userInput = "";
 
     // Adds a new event listener to the button b
-    b.addActionListener(new ActionListener() {
+    homeButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
 
         // Switches Alter Ego's face from shocked to happy.
-        shockedPicLabel.setVisible(false);
-        happyPicLabel.setVisible(true);
-
-        screenText.setText("<html>I'm...glad though, Naegi. I need your help though to answer these questions and help break through the terminal. Are you in? </html>");
-      }
-    });
-
-    // Adds a new event listener to the button b2
-    b2.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-
-        System.out.println("Hello, World!");
-
-        shockedPicLabel.setVisible(false);
-        happyPicLabel.setVisible(false);
-        shyPicLabel.setVisible(true);
-
-        screenText.setText("<html>Hello, World!</html>");
+        alterEgoPicture = alterEgoHappy;
+        
+        //screenText.setText("<html>I'm...glad though, Naegi. I need your help though to answer these questions and help break through the terminal. Are you in? </html>");
       }
     });
 
@@ -112,44 +91,38 @@ public class QuizGame {
     f = new JFrame();
 
     // Creating instance of Main JButton
-    b = new JButton("Continue");
+    homeButton = new JButton("Home");
 
-    b2 = new JButton("Hello, World!");
+    leaderboardButton = new JButton("Leaderboard");
+    
+    dialogueButton = new JButton("Continue");
 
     // Initialising image files for later loading.
-    alterEgoShocked = ImageIO.read(new File("AlterEgo/alterego.png"));
-
+    alterEgoPicture = ImageIO.read(new File("AlterEgo/alterego-bigger.jpg"));
     alterEgoHappy = ImageIO.read(new File("AlterEgo/happy.jpeg"));
-
-    alterEgoShy = ImageIO.read(new File("AlterEgo/shy.jpeg"));
-
-    // Creating instances of JLabel for graphic on screen.
-    shockedPicLabel = new JLabel(new ImageIcon(alterEgoShocked));
-
-    happyPicLabel = new JLabel(new ImageIcon(alterEgoHappy));
     
-    shyPicLabel = new JLabel(new ImageIcon(alterEgoShy));
+    // Creating instances of JLabel for graphic on screen.
+    alterEgoLabel = new JLabel(new ImageIcon(alterEgoPicture));
 
     screenText = new JLabel("Screen Text");
-    screenText.setText("<html>Wh..what! You actually made it into the mainframe! I...didn't expect someone to make it this far.</html>");
+    screenText.setText("<html><span style='font-size:15px'>Hello? Is...anyone there? I need your help.</html>");
 
-    scoreCounter = new JLabel("<html><span style='font-size:20px'>"+ "<html>Score: </html>");
+    scoreCounter = new JLabel("");
 
-    scoreCounter.setText("<html>Score: " + String.valueOf(score) + "</html>");
+    scoreCounter.setText("<html><span style='font-size:30px'>Score: " + String.valueOf(score) + "</html>");
 
     // Define the x axis, y axis, width, height for the components.
 
     // JButtons
-    b.setBounds(buttonOneBounds[0], buttonOneBounds[1], buttonOneBounds[2], buttonOneBounds[3]);
+    homeButton.setBounds(homeButtonBounds[0], homeButtonBounds[1], homeButtonBounds[2], homeButtonBounds[3]);
 
-    b2.setBounds(buttonTwoBounds[0], buttonTwoBounds[1], buttonTwoBounds[2], buttonTwoBounds[3]);
+    leaderboardButton.setBounds(leaderboardButtonBounds[0], leaderboardButtonBounds[1], leaderboardButtonBounds[2], leaderboardButtonBounds[3]);
+    
+    dialogueButton.setBounds(710, 520, homeButtonBounds[2], homeButtonBounds[3]);
+    //{510, 70, 650, 400};
 
     // Alter Ego Pictures
-    shockedPicLabel.setBounds(alterEgoBounds[0], alterEgoBounds[1], alterEgoBounds[2], alterEgoBounds[3]);
-
-    happyPicLabel.setBounds(alterEgoBounds[0], alterEgoBounds[1], alterEgoBounds[2], alterEgoBounds[3]);
-
-    shyPicLabel.setBounds(alterEgoBounds[0], alterEgoBounds[1], alterEgoBounds[2], alterEgoBounds[3]);
+    alterEgoLabel.setBounds(alterEgoBounds[0], alterEgoBounds[1], alterEgoBounds[2], alterEgoBounds[3]);
 
     // Screen text
     screenText.setBounds(screenTextBounds[0], screenTextBounds[1], screenTextBounds[2], screenTextBounds[3]);
@@ -157,11 +130,10 @@ public class QuizGame {
     scoreCounter.setBounds(scoreCounterBounds[0], scoreCounterBounds[1], scoreCounterBounds[2], scoreCounterBounds[3]);
 
     // Add each component to the JFrame
-    f.add(b);
-    f.add(b2);
-    f.add(shockedPicLabel);
-    f.add(happyPicLabel);
-    f.add(shyPicLabel);
+    f.add(homeButton);
+    f.add(leaderboardButton);
+    f.add(dialogueButton);
+    f.add(alterEgoLabel);
     f.add(screenText);
     f.add(scoreCounter);
 
@@ -171,6 +143,13 @@ public class QuizGame {
 
     // Make the JFrame visible
     f.setVisible(true);
+  }
+  
+  public void switchEmotion() throws IOException { 
+    alterEgoPicture = ImageIO.read(new File("AlterEgo/happy.jpg"));
+    
+    alterEgoLabel = new JLabel(new ImageIcon(alterEgoPicture));
+      
   }
   
 } // end QuizGame

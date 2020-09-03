@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Test
+comment1.params=
+comment1.target=void\ quizProcess()
+comment1.text=\r\n\ Main\ process\ method\ to\ be\ ran\ for\ the\ QuizGame.\r\n
+comment2.params=pane
+comment2.target=void\ addComponentToPane(java.awt.Container)
+comment3.params=
+comment3.target=void\ createAndShowGUI()
+numComments=4
