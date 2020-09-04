@@ -19,8 +19,8 @@ public class CardLayoutDemo implements ItemListener {
     final static String LEADERBOARDPANEL = "Leaderboard";
     
     // Window sizes
-    final static int extraWindowWidth = 1900;
-    final static int extraWindowHeight = 950;
+    final static int extraWindowWidth = 1800;
+    final static int extraWindowHeight = 850;
     
     // Overall cards JPanel
     JPanel cards; 
@@ -29,7 +29,22 @@ public class CardLayoutDemo implements ItemListener {
     JPanel card1;
     JPanel card2;
     JPanel card3;
-   
+    
+    // Program variables
+    int score = 0;
+    
+    // JAVA COMPONENT DEFINITIONS
+    
+    // JLabels
+    JLabel screenText;
+
+    JLabel scoreCounter;
+    
+    // Bounds for the objects
+    int[] scoreCounterBounds = {38, 50, 200, 100};
+
+    int[] screenTextBounds = {510, 500, 650, 200};
+     
     public void addComponentToPane(Container pane) throws IOException {
         
         //Put the JComboBox in a JPanel to get a nicer look.
@@ -58,18 +73,12 @@ public class CardLayoutDemo implements ItemListener {
     // Setup all of the content for the "Home" page
     public void setupHomePanel() throws IOException {
         
-          // JFrame Bounds only need width, height
-          int[] frameBounds = {1700, 850};
-        
-          // Int arrays for bounds of each element. Each bound is X, Y, Width and Height
-          int[] alterEgoBounds = {510, 70, 650, 400};
-        
-          int[] homeButtonBounds = {15, 150, 250, 40};
-          int[] leaderboardButtonBounds = {15, 250, 250, 40};
-          
-          int[] scoreCounterBounds = {38, 50, 200, 100};
-        
-          int[] screenTextBounds = {510, 500, 650, 200};
+        screenText = new JLabel("Screen Text");
+        screenText.setText("<html><span style='font-size:15px'>Hello? Is...anyone there? I need your help.</html>");
+
+        scoreCounter = new JLabel("");
+
+        scoreCounter.setText("<html><span style='font-size:30px'>Score: " + String.valueOf(score) + "</html>");
         
         JButton button1 = new JButton("Button 1");
         JButton button2 = new JButton("Button 2");
@@ -82,7 +91,7 @@ public class CardLayoutDemo implements ItemListener {
         // X, Y. Width, Height
         shockedPicLabel.setBounds(590, 150, 550, 300);
         
-        button1.setBounds(350, 100, 250, 40);
+        button1.setBounds(250, 100, 250, 40);
         button2.setBounds(280, 100, 250, 40);
         button3.setBounds(340, 100, 250, 40);
         
@@ -99,7 +108,6 @@ public class CardLayoutDemo implements ItemListener {
         
         card1.setLayout(null);
         
-        
         card1.add(new JButton("Button 1"));
         card1.add(new JButton("Button 2"));
         card1.add(new JButton("Button 3"));
@@ -115,10 +123,37 @@ public class CardLayoutDemo implements ItemListener {
     
     // Setup all of the content for the "Leaderboard" page
     public void setupLeaderboardPanel() throws IOException {
-        card3 = new JPanel();
-        card3.add(new JButton("Button 4"));
-        card3.add(new JButton("Button 5"));
-        card3.add(new JButton("Button 6"));
+        JButton button4 = new JButton("Button 4");
+        JButton button5 = new JButton("Button 5");
+        JButton button6 = new JButton("Button 6");
+        
+        card3 = new JPanel() {
+            // Make the window 1000x1000
+            public Dimension getPreferredSize() {
+                Dimension size = super.getPreferredSize();
+                size.width += extraWindowWidth;
+                size.height += extraWindowHeight;
+                return size;
+            }
+        };
+        
+        card3.setLayout(null);
+        
+        BufferedImage alterEgoShocked = ImageIO.read(new File("AlterEgo/alterego.png"));
+        
+        JLabel shockedPicLabel = new JLabel(new ImageIcon(alterEgoShocked));
+        
+        // X, Y. Width, Height
+        shockedPicLabel.setBounds(510, 70, 650, 400);
+        
+        button4.setBounds(15, 150, 250, 40);
+        button5.setBounds(15, 250, 250, 40);
+        button6.setBounds(710, 520, 250, 40);
+        
+        card3.add(button4);
+        card3.add(button5);
+        card3.add(button6);
+        card3.add(shockedPicLabel);
     }
      
     public void itemStateChanged(ItemEvent evt) {

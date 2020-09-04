@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.*;
 
 public class QuizGame {
-
   // GLOBAL PROGRAM VARIABLES
   int score = 0;
   
