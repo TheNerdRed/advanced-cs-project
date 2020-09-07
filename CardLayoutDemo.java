@@ -1,6 +1,6 @@
 /** 
 * The QuizGame class manages the state of the QuizGame, allowing players to
-* switch between the 'Home', 'Game' and 'Leaderboard' pages
+* switch between the 'Home', 'Game' and 'Leaderboard' pages, and play the game.
 *
 * @author  Lewis Binnie
 * @version 1.0
@@ -75,8 +75,8 @@ public class CardLayoutDemo implements ItemListener {
     public void setupHomePanel() throws IOException {
         
         // All screen text
-        JLabel screenText = new JLabel();
-        screenText.setText("<html><span style='font-size:15px;text-align: center;'> Wh..what! They really did it. You survived! </html>");
+        JLabel introText1 = new JLabel();
+        introText1.setText("<html><span style='font-size:15px;text-align: center;'> Wh..what! They really did it. You survived! </html>");
         
         JLabel introText2 = new JLabel();
         introText2.setText("<html><span style='font-size: 15px;text-align: center;'>Your inside the Neo World Program. We need your help to take down the systems that Junko Enoshima built up when she took control of Hope's Peak.</html>");
@@ -88,13 +88,13 @@ public class CardLayoutDemo implements ItemListener {
         introText4.setText("<html><span style='font-size:15px;text-align: center;'>Head to the 'Game' tab in the top menu to begin. Good luck...Naegi and the others are counting on you. </html>");
         
         // Alter ego images
-        BufferedImage alterEgoShocked = ImageIO.read(new File("AlterEgo/alterego.png"));
+        BufferedImage mainAlterEgoImage = ImageIO.read(new File("AlterEgo/alterego.png"));
         
-        JLabel shockedPicLabel = new JLabel(new ImageIcon(alterEgoShocked));
+        JLabel mainAlterEgoLabel = new JLabel(new ImageIcon(mainAlterEgoImage));
         
         // Bound constraints for all components - X, Y, Width, Height
-        shockedPicLabel.setBounds(510, 150, 550, 300);
-        screenText.setBounds(500, 375, 750, 300);
+        mainAlterEgoLabel.setBounds(510, 150, 550, 300);
+        introText1.setBounds(500, 375, 750, 300);
         introText2.setBounds(500, 435, 750, 300);
         introText3.setBounds(500, 495, 750, 300);
         introText4.setBounds(500, 555, 750, 300);
@@ -112,11 +112,11 @@ public class CardLayoutDemo implements ItemListener {
         
         card1.setLayout(null);
         
-        card1.add(screenText);
+        card1.add(introText1);
         card1.add(introText2);
         card1.add(introText3);
         card1.add(introText4);
-        card1.add(shockedPicLabel);
+        card1.add(mainAlterEgoLabel);
         
         
      }
@@ -146,28 +146,26 @@ public class CardLayoutDemo implements ItemListener {
         scoreCounter.setText("<html><span style='font-size:30px; font-family: Montserrat;'>Score: " + String.valueOf(score) + "</html>");
         
         // Buttons
-        JButton button6 = new JButton("Continue");
-        
-
+        JButton continueButton = new JButton("Continue");
         
         // Images
-        BufferedImage alterEgoShocked = ImageIO.read(new File("AlterEgo/alterego.png"));
+        BufferedImage alterEgoImage = ImageIO.read(new File("AlterEgo/alterego.png"));
         
-        JLabel shockedPicLabel = new JLabel(new ImageIcon(alterEgoShocked));
+        JLabel alterEgoImageLabel = new JLabel(new ImageIcon(alterEgoImage));
         
         // X, Y. Width, Height
-        shockedPicLabel.setBounds(510, 150, 550, 300);
+        alterEgoImageLabel.setBounds(510, 150, 550, 300);
         
-        button6.setBounds(650, 550, 250, 40);
+        continueButton.setBounds(650, 550, 250, 40);
         
         scoreCounter.setBounds(15, 15, 250, 40);
         
         // Allows for a more dynamic and fluid layout of the page where bounds are specified.
         card2.setLayout(null);
         
-        card2.add(button6);
+        card2.add(continueButton);
         card2.add(scoreCounter);
-        card2.add(shockedPicLabel);
+        card2.add(alterEgoImageLabel);
     } // end setupGamePanel()
     
     /**
@@ -186,9 +184,7 @@ public class CardLayoutDemo implements ItemListener {
     }
      
     /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event dispatch thread.
+     * Create the GUI and show it.
      * @throws IOException 
      */
     private static void createAndShowGUI() throws IOException {
@@ -207,8 +203,9 @@ public class CardLayoutDemo implements ItemListener {
     }
      
     public static void main(String[] args) {
-        /* Use an appropriate Look and Feel */
         try {
+            // Both types of graphical interfacen can be chosen.
+            
             //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
         } catch (UnsupportedLookAndFeelException ex) {
@@ -220,7 +217,8 @@ public class CardLayoutDemo implements ItemListener {
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-        /* Turn off metal's use of bold fonts */
+        
+        // Disable bold fonts.
         UIManager.put("swing.boldMetal", Boolean.FALSE);
          
         //Schedule a job for the event dispatch thread:
