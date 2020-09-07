@@ -1,7 +1,3 @@
-/*
- * CardLayoutDemo.java
- *
- */
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -19,8 +15,8 @@ public class CardLayoutDemo implements ItemListener {
     final static String LEADERBOARDPANEL = "Leaderboard";
     
     // Window sizes
-    final static int extraWindowWidth = 1000;
-    final static int extraWindowHeight = 750;
+    final static int extraWindowWidth = 1800;
+    final static int extraWindowHeight = 850;
     
     // Overall cards JPanel
     JPanel cards; 
@@ -30,7 +26,20 @@ public class CardLayoutDemo implements ItemListener {
     JPanel card2;
     JPanel card3;
     
+    // Program variables
+    int score = 0;
     
+    // JAVA COMPONENT DEFINITIONS
+    
+    // JLabels
+    JLabel screenText;
+
+    JLabel scoreCounter;
+    
+    // Bounds for the objects
+    int[] scoreCounterBounds = {38, 50, 200, 100};
+
+    int[] screenTextBounds = {510, 500, 650, 200};
      
     public void addComponentToPane(Container pane) throws IOException {
         
@@ -59,6 +68,12 @@ public class CardLayoutDemo implements ItemListener {
     
     // Setup all of the content for the "Home" page
     public void setupHomePanel() throws IOException {
+        screenText = new JLabel("Screen Text");
+        screenText.setText("<html><span style='font-size:15px'>Hello? Is...anyone there? I need your help.</html>");
+
+        scoreCounter = new JLabel("");
+
+        scoreCounter.setText("<html><span style='font-size:30px'>Score: " + String.valueOf(score) + "</html>");
         
         JButton button1 = new JButton("Button 1");
         JButton button2 = new JButton("Button 2");
@@ -104,10 +119,37 @@ public class CardLayoutDemo implements ItemListener {
     
     // Setup all of the content for the "Leaderboard" page
     public void setupLeaderboardPanel() throws IOException {
-        card3 = new JPanel();
-        card3.add(new JButton("Button 4"));
-        card3.add(new JButton("Button 5"));
-        card3.add(new JButton("Button 6"));
+        JButton button4 = new JButton("Button 4");
+        JButton button5 = new JButton("Button 5");
+        JButton button6 = new JButton("Button 6");
+        
+        card3 = new JPanel() {
+            // Make the window 1000x1000
+            public Dimension getPreferredSize() {
+                Dimension size = super.getPreferredSize();
+                size.width += extraWindowWidth;
+                size.height += extraWindowHeight;
+                return size;
+            }
+        };
+        
+        card3.setLayout(null);
+        
+        BufferedImage alterEgoShocked = ImageIO.read(new File("AlterEgo/alterego.png"));
+        
+        JLabel shockedPicLabel = new JLabel(new ImageIcon(alterEgoShocked));
+        
+        // X, Y. Width, Height
+        shockedPicLabel.setBounds(510, 70, 650, 400);
+        
+        button4.setBounds(15, 150, 250, 40);
+        button5.setBounds(15, 250, 250, 40);
+        button6.setBounds(710, 520, 250, 40);
+        
+        card3.add(button4);
+        card3.add(button5);
+        card3.add(button6);
+        card3.add(shockedPicLabel);
     }
      
     public void itemStateChanged(ItemEvent evt) {
@@ -125,6 +167,7 @@ public class CardLayoutDemo implements ItemListener {
         //Create and set up the window.
         JFrame frame = new JFrame("CardLayoutDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // test
          
         //Create and set up the content pane.
         CardLayoutDemo demo = new CardLayoutDemo();
