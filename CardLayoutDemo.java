@@ -1,3 +1,12 @@
+/** 
+* The QuizGame class manages the state of the QuizGame, allowing players to
+* switch between the 'Home', 'Game' and 'Leaderboard' pages
+*
+* @author  Lewis Binnie
+* @version 1.0
+* @since   07 / 08 / 2020
+*/
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -9,7 +18,7 @@ import javax.swing.*;
  
 public class CardLayoutDemo implements ItemListener {
     
-    // "Page" name Strings
+    // "Page" name String variables
     final static String HOMEPANEL = "Home";
     final static String GAMEPANEL = "Game";
     final static String LEADERBOARDPANEL = "Leaderboard";
@@ -22,25 +31,18 @@ public class CardLayoutDemo implements ItemListener {
     JPanel cards; 
     
     // Separate page JPanels
-    JPanel card1;
-    JPanel card2;
-    JPanel card3;
+    JPanel card1; // Home page
+    JPanel card2; // Game page
+    JPanel card3; // Leaderboard page
     
     // Program variables
     int score = 0;
-    
-    // JAVA COMPONENT DEFINITIONS
-    
-    // JLabels
-    JLabel screenText;
-
-    JLabel scoreCounter;
-    
-    // Bounds for the objects
-    int[] scoreCounterBounds = {38, 50, 200, 100};
-
-    int[] screenTextBounds = {510, 500, 650, 200};
      
+    /**
+    * The addComponentToPane() method sets up the dropdown menu for switching pages, and invokes the
+    * methods to setup all three individual pages.
+    * @throws IOException 
+    */
     public void addComponentToPane(Container pane) throws IOException {
         
         //Put the JComboBox in a JPanel to get a nicer look.
@@ -66,31 +68,38 @@ public class CardLayoutDemo implements ItemListener {
         pane.add(cards, BorderLayout.CENTER);
     }
     
-    // Setup all of the content for the "Home" page
+    /**
+    * Defines and places all of the content for the home page. 
+    * @throws IOException 
+    */
     public void setupHomePanel() throws IOException {
-        screenText = new JLabel("Screen Text");
-        screenText.setText("<html><span style='font-size:15px'>Hello? Is...anyone there? I need your help.</html>");
-
-        scoreCounter = new JLabel("");
-
-        scoreCounter.setText("<html><span style='font-size:30px'>Score: " + String.valueOf(score) + "</html>");
         
-        JButton button1 = new JButton("Button 1");
-        JButton button2 = new JButton("Button 2");
-        JButton button3 = new JButton("Button 3");
+        // All screen text
+        JLabel screenText = new JLabel();
+        screenText.setText("<html><span style='font-size:15px;text-align: center;'> Wh..what! They really did it. You survived! </html>");
         
+        JLabel introText2 = new JLabel();
+        introText2.setText("<html><span style='font-size: 15px;text-align: center;'>Your inside the Neo World Program. We need your help to take down the systems that Junko Enoshima built up when she took control of Hope's Peak.</html>");
+        
+        JLabel introText3 = new JLabel();
+        introText3.setText("<html><span style='font-size: 15px;text-align: center;'>We're going to answer a series of security questions based after some of Jin Kirigiri, the old Hope's Peak headmasters, favourite things!</html>");
+        
+        JLabel introText4 = new JLabel();
+        introText4.setText("<html><span style='font-size:15px;text-align: center;'>Head to the 'Game' tab in the top menu to begin. Good luck...Naegi and the others are counting on you. </html>");
+        
+        // Alter ego images
         BufferedImage alterEgoShocked = ImageIO.read(new File("AlterEgo/alterego.png"));
         
         JLabel shockedPicLabel = new JLabel(new ImageIcon(alterEgoShocked));
         
-        // X, Y. Width, Height
-        shockedPicLabel.setBounds(590, 150, 550, 300);
+        // Bound constraints for all components - X, Y, Width, Height
+        shockedPicLabel.setBounds(510, 150, 550, 300);
+        screenText.setBounds(500, 375, 750, 300);
+        introText2.setBounds(500, 435, 750, 300);
+        introText3.setBounds(500, 495, 750, 300);
+        introText4.setBounds(500, 555, 750, 300);
         
-        button1.setBounds(250, 100, 250, 40);
-        button2.setBounds(280, 100, 250, 40);
-        button3.setBounds(340, 100, 250, 40);
-        
-        //Create the "cards".
+        // Home page card constructor
         card1 = new JPanel() {
             // Make the window 1000x1000
             public Dimension getPreferredSize() {
@@ -103,28 +112,24 @@ public class CardLayoutDemo implements ItemListener {
         
         card1.setLayout(null);
         
-        
-        card1.add(new JButton("Button 1"));
-        card1.add(new JButton("Button 2"));
-        card1.add(new JButton("Button 3"));
+        card1.add(screenText);
+        card1.add(introText2);
+        card1.add(introText3);
+        card1.add(introText4);
         card1.add(shockedPicLabel);
+        
         
      }
     
-    // Setup all of the content for the "Game" page.
+    /**
+    * Defines and places all of the content for the Game page. 
+    * Contains the code for running the quiz game.
+    * @throws IOException 
+    */
     public void setupGamePanel() throws IOException {
-        card2 = new JPanel();
-        card2.add(new JTextField("TextField", 20));
-    }
-    
-    // Setup all of the content for the "Leaderboard" page
-    public void setupLeaderboardPanel() throws IOException {
-        JButton button4 = new JButton("Button 4");
-        JButton button5 = new JButton("Button 5");
-        JButton button6 = new JButton("Button 6");
-        
-        card3 = new JPanel() {
-            // Make the window 1000x1000
+        // Game page card constructor
+        card2 = new JPanel() {
+            // Make the window the specified sizes
             public Dimension getPreferredSize() {
                 Dimension size = super.getPreferredSize();
                 size.width += extraWindowWidth;
@@ -133,25 +138,48 @@ public class CardLayoutDemo implements ItemListener {
             }
         };
         
-        card3.setLayout(null);
+        // JAVA COMPONENT DEFINITIONS
         
+        // Score counter
+        JLabel scoreCounter = new JLabel("");
+
+        scoreCounter.setText("<html><span style='font-size:30px; font-family: Montserrat;'>Score: " + String.valueOf(score) + "</html>");
+        
+        // Buttons
+        JButton button6 = new JButton("Continue");
+        
+
+        
+        // Images
         BufferedImage alterEgoShocked = ImageIO.read(new File("AlterEgo/alterego.png"));
         
         JLabel shockedPicLabel = new JLabel(new ImageIcon(alterEgoShocked));
         
         // X, Y. Width, Height
-        shockedPicLabel.setBounds(510, 70, 650, 400);
+        shockedPicLabel.setBounds(510, 150, 550, 300);
         
-        button4.setBounds(15, 150, 250, 40);
-        button5.setBounds(15, 250, 250, 40);
-        button6.setBounds(710, 520, 250, 40);
+        button6.setBounds(650, 550, 250, 40);
         
-        card3.add(button4);
-        card3.add(button5);
-        card3.add(button6);
-        card3.add(shockedPicLabel);
-    }
-     
+        scoreCounter.setBounds(15, 15, 250, 40);
+        
+        // Allows for a more dynamic and fluid layout of the page where bounds are specified.
+        card2.setLayout(null);
+        
+        card2.add(button6);
+        card2.add(scoreCounter);
+        card2.add(shockedPicLabel);
+    } // end setupGamePanel()
+    
+    /**
+    * Defines and places all of the content for the leaderboard page. 
+    */
+    public void setupLeaderboardPanel() throws IOException {
+        // Leaderboard page card constructor
+        card3 = new JPanel();
+        
+        card3.add(new JTextField("TextField", 20));
+    } // end setupLeaderboardPanel()
+    
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, (String)evt.getItem());
