@@ -73,6 +73,7 @@ public class CardLayoutDemo implements ItemListener {
     * @throws IOException 
     */
     public void setupHomePanel() throws IOException {
+        int yCoordinate = -20;
         
         // All screen text
         JLabel introText1 = new JLabel();
@@ -89,31 +90,17 @@ public class CardLayoutDemo implements ItemListener {
         
         // Alter ego images
         BufferedImage mainAlterEgoImage = ImageIO.read(new File("AlterEgo/alterego.png"));
-        BufferedImage alterEgo2 = ImageIO.read(new File("AlterEgo/excited.jpeg"));
-        BufferedImage alterEgo3 = ImageIO.read(new File("AlterEgo/happy.jpeg"));
-        BufferedImage alterEgo4 = ImageIO.read(new File("AlterEgo/sad.jpeg"));
-        BufferedImage alterEgo5 = ImageIO.read(new File("AlterEgo/shocked.jpeg"));
-        BufferedImage alterEgo6 = ImageIO.read(new File("AlterEgo/shy.jpeg"));
         
+        // Image file and size arrays
         String[] alterEgoFilePaths = new String[]{"AlterEgo/excited.jpeg", "AlterEgo/happy.jpeg", "AlterEgo/sad.jpeg", "AlterEgo/shocked.jpeg", "AlterEgo/shy.jpeg"};
-        BufferedImage[] alterEgoLeftImages = new BufferedImage[5];
-        JLabel[] alterEgoLeftLabels = new JLabel[5];
+
+        BufferedImage[] alterEgoRightImages = new BufferedImage[5];
+        JLabel[] alterEgoRightLabels = new JLabel[5];
         
         JLabel mainAlterEgoLabel = new JLabel(new ImageIcon(mainAlterEgoImage));
-        JLabel alterEgo2Label = new JLabel(new ImageIcon(alterEgo2));
-        JLabel alterEgo3Label = new JLabel(new ImageIcon(alterEgo3));
-        JLabel alterEgo4Label = new JLabel(new ImageIcon(alterEgo4));
-        JLabel alterEgo5Label = new JLabel(new ImageIcon(alterEgo5));
-        JLabel alterEgo6Label = new JLabel(new ImageIcon(alterEgo6));
         
         // Bound constraints for all components - X, Y, Width, Height
         mainAlterEgoLabel.setBounds(510, 150, 550, 300);
-        
-        alterEgo2Label.setBounds(100, -20, 550, 300);
-        alterEgo3Label.setBounds(100, 140, 550, 300);
-        alterEgo4Label.setBounds(100, 300, 550, 300);
-        alterEgo5Label.setBounds(100, 460, 550, 300);
-        alterEgo6Label.setBounds(100, 620, 550, 300);
         
         introText1.setBounds(500, 375, 750, 300);
         introText2.setBounds(500, 435, 750, 300);
@@ -132,20 +119,18 @@ public class CardLayoutDemo implements ItemListener {
         };
         
         card1.setLayout(null);
-        
-        for(int i = 0; i < alterEgoLeftImages.length; i++) {
-            int yCoordinate = -20;
+
+        for(int i = 0; i < alterEgoRightImages.length; i++) {
+            //System.out.println(alterEgoFilePaths[i]);
+            alterEgoRightImages[i] = ImageIO.read(new File(alterEgoFilePaths[i])); 
             
-            System.out.println(alterEgoFilePaths[i]);
-            alterEgoLeftImages[i] = ImageIO.read(new File(alterEgoFilePaths[i])); 
+            alterEgoRightLabels[i] = new JLabel(new ImageIcon(alterEgoRightImages[i]));
             
-            alterEgoLeftLabels[i] = new JLabel(new ImageIcon(alterEgoLeftImages[i]));
+            alterEgoRightLabels[i].setBounds(1100, yCoordinate, 550, 300);
             
-            alterEgoLeftLabels[i].setBounds(1000, yCoordinate, 550, 300);
+            card1.add(alterEgoRightLabels[i]);
             
-            card1.add(alterEgoLeftLabels[i]);
-            
-            yCoordinate += 160;
+            yCoordinate = yCoordinate + 200;
         }
         
         card1.add(introText1);
@@ -153,13 +138,6 @@ public class CardLayoutDemo implements ItemListener {
         card1.add(introText3);
         card1.add(introText4);
         card1.add(mainAlterEgoLabel);
-        card1.add(alterEgo2Label);
-        card1.add(alterEgo3Label);
-        card1.add(alterEgo4Label);
-        card1.add(alterEgo5Label);
-        card1.add(alterEgo6Label);
-        
-        
      }
     
     /**
