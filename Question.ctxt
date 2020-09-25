@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Question
+comment0.text=\r\n\ Record\ for\ each\ Question\ stored.\r\n\r\n\ @author\ Lewis\ Binnie\r\n\ @version\ 1.0\r\n
+comment1.params=question\ answer1\ answer2\ answer3\ answer4
+comment1.target=Question(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Question\r\n
+comment2.params=
+comment2.target=java.lang.String\ getQuestion()
+comment3.params=
+comment3.target=java.lang.String\ getAnswer1()
+comment4.params=
+comment4.target=java.lang.String\ getAnswer2()
+comment5.params=
+comment5.target=java.lang.String\ getAnswer3()
+comment6.params=
+comment6.target=java.lang.String\ getAnswer4()
+numComments=7

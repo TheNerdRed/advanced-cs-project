@@ -1,62 +1,49 @@
-import java.awt.*;
 import java.io.*;
+import java.util.*;
 
-import javax.imageio.*;
-import javax.swing.*;
+/**
+ * Test class for development
+ *
+ * @author Lewis Binnie
+ */
+public class Test
+{
+  Question[] questionList = new Question[2];
+  
+  public void testProcess() throws IOException {
+      readQuestionFile(questionList);
+      printCSV(questionList);
+  }
+    
+  public void readQuestionFile(Question[] questionList) throws IOException {
+    String csv = "";
+    String[] valueList = new String[4];
 
-public class Test extends JFrame {
+    // identify file
+    String inputFile = "Database/questions.csv";
+    // open file
+    Scanner fileReader = new Scanner(new File(inputFile));
 
-	  int[] frameBounds = {800, 650};
+    // loop for every csv row, fetch from file and store
+    for (int i = 0; i < questionList.length; i++) {
 
-	  // JAVA SWING COMPONENT VARIABLES
+      csv = fileReader.nextLine();
+      valueList = csv.split(",");
+      
+      questionList[i] = new Question(valueList[0], valueList[1], valueList[2], valueList[3], valueList[4]);
+    }
 
-	  // JFrame
-	  static JFrame f;
-	  
-	  // JPanel
-	  JPanel cards;
-	  
-	  JPanel card1;
-	  JPanel card2;
-	  
-	  final static String BUTTONPANEL = "Card with JButtons";
-	  final static String TEXTPANEL = "Card with JTextField";
-	  
-	  /**
-	  * Main process method to be ran for the QuizGame.
-	  */
-	  public void quizProcess() throws IOException {
-		  
-		  
-		  		  
-	    // Executes a method to setup all the bounds, components of the frame.
-	    //setupFrame();
+    fileReader.close();
 
-	    // Program code begins here
-	    System.out.println("Test");
-
-	  } // end quizProcess()
-	  
-	  public void addComponentToPane(Container pane) {
-		  
-		  JPanel card1 = new JPanel();
-		  card1.add(new JButton("Button 1"));
-		  
-		  JPanel card2 = new JPanel();
-		  card2.add(new JButton("Button 2"));
-		  
-		  cards = new JPanel(new CardLayout());
-		  
-		  pane.add(cards);
-		  
-	  }
-	  
-	  public void createAndShowGUI() {
-		  JFrame frame = new JFrame("Test Frame");
-		  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		  
-		  Test demo = new Test();
-		  demo.addComponentToPane(frame.getContentPane());
-	  }
-	  
-} // end Test
+  } // end readQuestionFile()
+  
+  public void printCSV(Question[] questionList) {
+      for(int i = 0; i < questionList.length; i++) {
+          System.out.println("Question: " + questionList[i].getQuestion());
+          System.out.println("Answer 1: " + questionList[i].getAnswer1());
+          System.out.println("Answer 2: " + questionList[i].getAnswer2());
+          System.out.println("Answer 3: " + questionList[i].getAnswer3());
+          System.out.println("Answer 4: " + questionList[i].getAnswer4());
+      }
+  }
+}
