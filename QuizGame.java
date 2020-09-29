@@ -12,11 +12,15 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
  
 public class QuizGame implements ItemListener {
+    // System variables
+    Random rand = new Random();
+    
     int openDialoguePos = 0;
     boolean openTextFinished = false;
     
@@ -232,6 +236,9 @@ public class QuizGame implements ItemListener {
         
         // Images
         BufferedImage alterEgoImage = ImageIO.read(new File("AlterEgo/alterego.png"));
+        BufferedImage alterEgoNeutral = ImageIO.read(new File("AlterEgo/neutral.jpeg"));
+        //JLabel alterEgoImageLabel = new JLabel(new ImageIcon(alterEgoImage));
+        
         JLabel alterEgoImageLabel = new JLabel(new ImageIcon(alterEgoImage));
         
         // X, Y. Width, Height
@@ -275,6 +282,11 @@ public class QuizGame implements ItemListener {
                if(openDialoguePos == openingDialogue.length) {
                    continueButton.setVisible(false);
                    dialogueText.setVisible(false);
+                   try {
+                     quizLoop();
+                   } catch(IOException excep) {
+                     // Handle the error here
+                   }
                }
           }
         });
@@ -283,8 +295,24 @@ public class QuizGame implements ItemListener {
     /**
     * The actual loop for the quiz game itself
     */
-    public void quizLoop() {
+    public void quizLoop() throws IOException {
+        BufferedImage[] goodEmotionImages = new BufferedImage[]{ImageIO.read(new File("AlterEgo/happy.jpeg")), ImageIO.read(new File("AlterEgo/shocked.jpeg")), ImageIO.read(new File("AlterEgo/excited.jpeg"))};
+        BufferedImage[] badEmotionImages = new BufferedImage[]{ImageIO.read(new File("AlterEgo/sad.jpeg")), ImageIO.read(new File("AlterEgo/shy.jpeg")), ImageIO.read(new File("AlterEgo/thinking.jpeg"))};
         
+        JButton answerButton1 = new JButton("");
+        JButton answerButton2 = new JButton("");
+        JButton answerButton3 = new JButton("");
+        JButton answerButton4 = new JButton("");
+        
+        answerButton1.setBounds(50, 580, 200, 100);
+        answerButton2.setBounds(350, 580, 200, 100);
+        answerButton3.setBounds(650, 580, 200, 100);
+        answerButton4.setBounds(950, 580, 200, 100);
+        
+        card2.add(answerButton1);
+        card2.add(answerButton2);
+        card2.add(answerButton3);
+        card2.add(answerButton4);
     }
     
     /**

@@ -8,19 +8,19 @@ import java.util.*;
  */
 public class Test
 {
-  Question[] questionList = new Question[2];
+  Question[] questionList = new Question[5];
   
   public void testProcess() throws IOException {
       readQuestionFile(questionList);
-      printCSV(questionList);
+      //printCSV(questionList);
   }
     
   public void readQuestionFile(Question[] questionList) throws IOException {
     String csv = "";
-    String[] valueList = new String[4];
+    String[] valueList = new String[5];
 
     // identify file
-    String inputFile = "Database/questions.csv";
+    String inputFile = "questions.csv";
     // open file
     Scanner fileReader = new Scanner(new File(inputFile));
 
