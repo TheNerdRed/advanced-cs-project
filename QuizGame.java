@@ -21,8 +21,13 @@ public class QuizGame implements ItemListener {
     // System variables
     Random rand = new Random();
     
-    int openDialoguePos = 0;
-    boolean openTextFinished = false;
+    // Static variables
+    static int openDialoguePos = 0;
+    
+    static boolean openTextFinished = false;
+    
+    static int currentQuestion = 0;
+    static int currentAnswer = 0;
     
     // "Page" name String variables
     final static String HOMEPANEL = "Home";
@@ -283,85 +288,16 @@ public class QuizGame implements ItemListener {
                    continueButton.setVisible(false);
                    dialogueText.setVisible(false);
                    try {
-                     quizLoop();
+                     quizProcess();
                    } catch(IOException excep) {
                      // Handle the error here
                    }
+                   //quizProcess();
                }
           }
         });
     } // end setupGamePanel()
-    
-    /**
-    * The actual loop for the quiz game itself
-    */
-    public void quizLoop() throws IOException {
-        // Question tracker for the loop
-        final int amtQuestions = 20;
-        
-        // Array of alter ego images
-        BufferedImage[] goodEmotionImages = new BufferedImage[]{ImageIO.read(new File("AlterEgo/happy.jpeg")), ImageIO.read(new File("AlterEgo/shocked.jpeg")), ImageIO.read(new File("AlterEgo/excited.jpeg"))};
-        BufferedImage[] badEmotionImages = new BufferedImage[]{ImageIO.read(new File("AlterEgo/sad.jpeg")), ImageIO.read(new File("AlterEgo/shy.jpeg")), ImageIO.read(new File("AlterEgo/thinking.jpeg"))};
-        
-        // ALL HARD-CODED TEXT, EVENTUALLY TO BE READ IN BY THE DATABASE.
-        String[] questions = new String[20];
-        String[] answers = new String[80];
-        String[] questionCorrectDialogue = new String[10];
-        String[] questionWrongDialogue = new String[10];
-        
-        questionCorrectDialogue[0] = "Well done!! You solved it! That was quick. Let’s move on quickly before Junko notices something is up.";
-        questionCorrectDialogue[1] = "That’s correct! I wouldn’t have even guessed that...I suppose humans do have their strengths.";
-        questionCorrectDialogue[2] = "That’s fantastic! Great work, let’s keep that up for the future.";
-        questionCorrectDialogue[3] = "Incredible...how you managed to solve that so quickly.";
-        questionCorrectDialogue[4] = "That one was tricky! Hopefully none of the others will be as bad as that.";
-        questionCorrectDialogue[5] = "Okay, we kept a clear head with that one. Chihiro would be proud of us.";
-        questionCorrectDialogue[6] = "Ha! That was easy! Junko won’t stand a chance...I swear I will free them all from despair.";
-        questionCorrectDialogue[7] = "Wow! I think we should start calling you the Ultimate Quiz Master!";
-        questionCorrectDialogue[8] = "YES! That’s it! That’s the correct answer!";
-        questionCorrectDialogue[9] = "Alright let’s keep pushing on...brilliant work!";
-        
-        questionWrongDialogue[0] = "Oh no! That’s not the right answer...let’s move on quickly.";
-        questionWrongDialogue[1] = "To quote the Ultimate Lucky Student Makoto Naegi himself...No, that’s wrong!";
-        questionWrongDialogue[2] = "Aah! We got that wrong...we can’t let ourselves slip up like this...";
-        questionWrongDialogue[3] = "That’s unlucky, we need to pick ourselves up and move on.";
-        questionWrongDialogue[4] = "No! That’s the incorrect answer...";
-        questionWrongDialogue[5] = "What? I really thought that one was correct...";
-        questionWrongDialogue[6] = "That was an incorrect answer worthy of Kazuichi Soda himself...";
-        questionWrongDialogue[7] = "AH! That’s a wrong answer! The goal is to get as many right as possible.";
-        questionWrongDialogue[8] = "Oh...looks like that was wrong….okay….";
-        questionWrongDialogue[9] = "Don’t get yourself down. It’s okay, everyone makes mistakes.";
-        
-        answers[0] = "Answer 1";
-        answers[1] = "Answer 2";
-        answers[2] = "Answer 3";
-        answers[3] = "Answer 4";
-        
-        // Answer buttons
-        JButton answerButton1 = new JButton("");
-        JButton answerButton2 = new JButton("");
-        JButton answerButton3 = new JButton("");
-        JButton answerButton4 = new JButton("");
-        
-        // Bound setting (X, Y, Width, Height)
-        answerButton1.setBounds(150, 580, 200, 100);
-        answerButton2.setBounds(550, 580, 200, 100);
-        answerButton3.setBounds(950, 580, 200, 100);
-        answerButton4.setBounds(1350, 580, 200, 100);
-        
-        // Adding to the JFrame
-        card2.add(answerButton1);
-        card2.add(answerButton2);
-        card2.add(answerButton3);
-        card2.add(answerButton4);
-        
-        for(int i = 0; i < amtQuestions; i++) {
-            answerButton1.setText(answers[0]);
-            answerButton2.setText(answers[1]);
-            answerButton3.setText(answers[2]);
-            answerButton4.setText(answers[3]);
-        }
-    }
-    
+      
     /**
     * Defines and places all of the content for the leaderboard page. 
     */
@@ -372,10 +308,104 @@ public class QuizGame implements ItemListener {
         card3.add(new JTextField("TextField", 20));
     } // end setupLeaderboardPanel()
     
-    // QUIZ GAME RUNNING CODE METHODS
-    public void beginGame() {
+    /**
+    * The top level method for the quiz game.
+    */
+    public void quizProcess() throws IOException {
+        String[] questions = new String[20];
         
+        // All 80 answers are stored here, each in a 'set' of four.
+        String[] answers = new String[80];
+        
+        // An integer list which stores the positions of each correct answer.
+        int[] correctAnswers;
+        
+        // Define answer buttons
+        JButton[] answerButtons = new JButton[4];
+       
+        // TOP LEVEL METHOD BEGINS
+        setupQuizUI(answerButtons);
+        
+        readData(questions, answers);
+        
+        // Loops twenty times. 
+        for(int i = 0; i < 2; i++) {
+            moveOntoNextQuestion(questions, answers, answerButtons);
+            //assignData();
+            checkCorrectQuestion();
+        }
+        
+        endingDialogue();
     }
-
     
+    /**
+    * Initialise and setup the answer buttons and question text
+    */
+    public void setupQuizUI(JButton[] answerButtons) {
+        //System.out.println("Fifth read: " + currentQuestion + 25);
+        
+        // Bound setting (X, Y, Width, Height)
+        answerButtons[0].setBounds(150, 580, 200, 100);
+        answerButtons[1].setBounds(550, 580, 200, 100);
+        answerButtons[2].setBounds(950, 580, 200, 100);
+        answerButtons[3].setBounds(1350, 580, 200, 100);
+        
+        // Adding to the JFrame
+        card2.add(answerButtons[0]);
+        card2.add(answerButtons[1]);
+        card2.add(answerButtons[2]);
+        card2.add(answerButtons[3]);
+    }  
+    
+    /**
+    * Read in the data from the database to the arrays.
+    */
+    public void readData(String[] questions, String[] answers) {
+        //System.out.println("First read: " + currentQuestion + 5);
+        
+        questions[0] = "Question 1";
+        questions[1] = "Question 2";
+        
+        answers[0] = "Answer 1";
+        answers[1] = "Answer 2";
+        answers[2] = "Answer 3";
+        answers[3] = "Answer 4";
+        answers[4] = "Answer 5";
+        answers[5] = "Answer 6";
+        answers[6] = "Answer 7";
+        answers[7] = "Answer 8";
+    }
+    
+    /**
+    * 
+    * Moves onto the next question and prepares the data for read-in
+    * Assign the next question to the text field
+    * Assign the next answers to the buttons
+    */
+    public void moveOntoNextQuestion(String questions[], String[] answers, JButton[] answerButtons) {
+        //System.out.println("Third read: " + currentQuestion + 15);
+        
+        String nextQuestion = questions[currentQuestion];
+        //String[] nextAnswers = new String[]{answers[currentAnswer]};
+        
+        answerButtons[0].setText(answers[currentAnswer]);
+        answerButtons[1].setText(answers[currentAnswer + 1]);
+        answerButtons[2].setText(answers[currentAnswer + 2]);
+        answerButtons[3].setText(answers[currentAnswer + 3]);
+    }
+    
+    /**
+    * @param answer
+    * Check if the clicked answer was correct.
+    */
+    public void checkCorrectQuestion() {
+        //System.out.println("Fifth read: " + currentQuestion + 25);
+    }
+    
+    /**
+    * Ending dialogue when the quiz is finished.
+    */
+    public void endingDialogue() {
+        //System.out.println("Fifth read: " + currentQuestion + 25);
+    }
 }
