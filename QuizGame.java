@@ -41,8 +41,9 @@ public class QuizGame implements ItemListener {
     static JButton[] answerButtons = new JButton[4];
     
     static JLabel questionText = new JLabel();
-
     
+    static JLabel scoreCounter = new JLabel("");
+
     // JPANEL VARIABLES
     
     // "Page" name String variables
@@ -252,7 +253,6 @@ public class QuizGame implements ItemListener {
         String[] openingDialogue = new String[]{"<html><span style='font-size:20px;'>We need your help. After Junko Enoshima took over Hope’s Peak Academy, she trapped the entire of Class 78 inside a monstrous killing game! My creator, Chihiro Fujisaki, is one of them.", "<html><span style='font-size:20px;'>I managed to patch into the systems that the Ultimate Imposter setup when he fell into despair, but we’ve been hit with a security system implemented by Jin Kirigiri before he…", "<html><span style='font-size:20px;'>Anyway, we need to get a good enough score out of twenty quiz questions in order to get inside the network, where my creator should be waiting for me.", "<html><span style='font-size:20px;'>Let’s do this. Answer the questions as best as you can. Good luck.", ""};
         
         // Score counter
-        JLabel scoreCounter = new JLabel("");
         scoreCounter.setText("<html><span style='font-size:30px;'>Score: " + String.valueOf(score) + "</html>");
         
         // Alter ego dialogue text
@@ -338,35 +338,11 @@ public class QuizGame implements ItemListener {
     * @throws IOException
     */
     public void quizProcess() throws IOException {
-        /*String[] questions = new String[20];
-        
-        // All 80 answers are stored here, each in a 'set' of four.
-        String[] answers = new String[80];
-        
-        // An integer list which stores the positions of each correct answer.
-        int[] correctAnswers;
-        
-        // Define answer buttons
-        JButton[] answerButtons = new JButton[4];
-        
-        for(int i = 0; i < answerButtons.length; i++) {
-            answerButtons[i] = new JButton("Test");
-        }*/
-       
         // TOP LEVEL METHOD BEGINS
         setupQuizUI(answerButtons);
         
         readData(questions, answers);
-        
-        /*while(moveOn != false) {
-            // Loops twenty times. 
-            for(int i = 0; i < 2; i++) {
-                moveOntoNextQuestion(questions, answers, answerButtons);
-                //assignData();
-                checkCorrectQuestion(answerButtons);
-            }
-        }*/
-        
+    
         quizLoop(questions, answers, answerButtons);
     }
     
@@ -456,11 +432,13 @@ public class QuizGame implements ItemListener {
           public void actionPerformed(ActionEvent e) {
               if(correctAnswer == 0) {
                   System.out.println("Button 1 is correct!");
-                  // score += 10;
+                  score += 10;
+                  updateScore(scoreCounter);
 
               } else {
                   System.out.println("Button 1 is wrong!");
-                  // score -= 5;
+                  score -= 5;
+                  updateScore(scoreCounter);
               }
               
               currentQuestion += 1;
@@ -477,11 +455,12 @@ public class QuizGame implements ItemListener {
           public void actionPerformed(ActionEvent e) {
               if(correctAnswer == 1) {
                   System.out.println("Button 2 is correct!");
-                  // score += 10;
-
+                  score += 10;
+                  updateScore(scoreCounter);
               } else {
                   System.out.println("Button 2 is wrong!");
-                  // score -= 5;
+                  score -= 5;
+                  updateScore(scoreCounter);
               }
               
               currentQuestion += 1;
@@ -497,11 +476,12 @@ public class QuizGame implements ItemListener {
           public void actionPerformed(ActionEvent e) {
               if(correctAnswer == 2) {
                   System.out.println("Button 3 is correct!");
-                  // score += 10;
-
+                  score += 10;
+                  updateScore(scoreCounter);
               } else {
                   System.out.println("Button 3 is wrong!");
-                  // score -= 5;
+                  score -= 5;
+                  updateScore(scoreCounter);
               }
               
               currentQuestion += 1;
@@ -517,11 +497,12 @@ public class QuizGame implements ItemListener {
           public void actionPerformed(ActionEvent e) {
               if(correctAnswer == 3) {
                   System.out.println("Button 4 is correct!");
-                  // score += 10;
-
+                  score += 10;
+                  updateScore(scoreCounter);
               } else {
                   System.out.println("Button 4 is wrong!");
-                  // score -= 5;
+                  score -= 5;
+                  updateScore(scoreCounter);
               }
               
               currentQuestion += 1;
@@ -531,6 +512,10 @@ public class QuizGame implements ItemListener {
               
           }
         });
+    }
+    
+    public void updateScore(JLabel scoreCounter) {
+        scoreCounter.setText("<html><span style='font-size:30px;'>Score: " + String.valueOf(score) + "</html>");
     }
     
     /**
