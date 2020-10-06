@@ -18,10 +18,10 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
  
 public class QuizGame implements ItemListener {
-    // System variables
+    // Class variables
     Random rand = new Random();
     
-    // Static variables
+    // Static variables, to be accessed in multiple methods throughout the program
     static int openDialoguePos = 0;
     
     static boolean openTextFinished = false;
@@ -42,6 +42,9 @@ public class QuizGame implements ItemListener {
     
     static JLabel questionText = new JLabel();
 
+    
+    // JPANEL VARIABLES
+    
     // "Page" name String variables
     final static String HOMEPANEL = "Home";
     final static String GAMEPANEL = "Game";
@@ -62,7 +65,10 @@ public class QuizGame implements ItemListener {
     // Program variables
     int score = 0;
     
-    // JAVA SWING CARD LAYOUT INTEGRAL METHODS
+    /* JAVA SWING CARD LAYOUT INTEGRAL METHODS
+     * These were taken from an online website in order to get my code to work. The main(), itemStateChanged(), createAndShowGUI() and addComponentToPane()
+     * were taken from the CardLayout tutorial site (https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/CardLayoutDemoProject/src/layout/CardLayoutDemo.java)
+    */
     public static void main(String[] args) {
         try {
             // Both types of graphical interface can be chosen.
@@ -96,6 +102,10 @@ public class QuizGame implements ItemListener {
         });
     }
 
+    /**
+     * Creates the CardLayout object and shows the cards in the overall screen layout.
+     * @param ItemEvent evt
+     */
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, (String)evt.getItem());
@@ -121,8 +131,8 @@ public class QuizGame implements ItemListener {
     }
      
     /**
-    * The addComponentToPane() method sets up the dropdown menu for switching pages, and invokes the
-    * methods to setup all three individual pages.
+    * The addComponentToPane() method sets up the dropdown menu for switching pages, and invokes the methods to setup all three individual pages.
+    * @param Container pane
     * @throws IOException 
     */
     public void addComponentToPane(Container pane) throws IOException {
@@ -200,6 +210,7 @@ public class QuizGame implements ItemListener {
             }
         };
         
+        // Sets the layout so bounds are able to be set for the 
         card1.setLayout(null);
 
         for(int i = 0; i < alterEgoRightImages.length; i++) {
@@ -312,7 +323,8 @@ public class QuizGame implements ItemListener {
     } // end setupGamePanel()
       
     /**
-    * Defines and places all of the content for the leaderboard page. 
+    * Defines and places all of the content for the leaderboard page.
+    * @throws IOException
     */
     public void setupLeaderboardPanel() throws IOException {
         // Leaderboard page card constructor
@@ -323,6 +335,7 @@ public class QuizGame implements ItemListener {
     
     /**
     * The top level method for the quiz game.
+    * @throws IOException
     */
     public void quizProcess() throws IOException {
         /*String[] questions = new String[20];
