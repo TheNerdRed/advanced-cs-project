@@ -322,6 +322,10 @@ public class QuizGame implements ItemListener {
         
         // Define answer buttons
         JButton[] answerButtons = new JButton[4];
+        
+        for(int i = 0; i < answerButtons.length; i++) {
+            answerButtons[i] = new JButton("Test");
+        }
        
         // TOP LEVEL METHOD BEGINS
         setupQuizUI(answerButtons);
@@ -332,7 +336,7 @@ public class QuizGame implements ItemListener {
         for(int i = 0; i < 2; i++) {
             moveOntoNextQuestion(questions, answers, answerButtons);
             //assignData();
-            checkCorrectQuestion();
+            checkCorrectQuestion(answerButtons);
         }
         
         endingDialogue();
@@ -398,8 +402,35 @@ public class QuizGame implements ItemListener {
     * @param answer
     * Check if the clicked answer was correct.
     */
-    public void checkCorrectQuestion() {
-        //System.out.println("Fifth read: " + currentQuestion + 25);
+    public void checkCorrectQuestion(JButton[] answerButtons) {
+        
+        answerButtons[0].addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              
+          }
+        });
+        
+        answerButtons[1].addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              
+          }
+        });
+        
+        answerButtons[2].addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              
+          }
+        });
+        
+        answerButtons[0].addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              
+          }
+        });
     }
     
     /**
