@@ -3,7 +3,7 @@
 * switch between the 'Home', 'Game' and 'Leaderboard' pages, and play the game.
 *
 * @author  Lewis Binnie
-* @version 1.0
+* @version 31.0
 * @since   07 / 08 / 2020
 */
 
@@ -43,6 +43,11 @@ public class QuizGame implements ItemListener {
     static JLabel questionText = new JLabel();
     
     static JLabel scoreCounter = new JLabel("");
+    
+    // Alter ego image
+    static BufferedImage alterEgoImage;
+    
+    static JLabel alterEgoImageLabel;
 
     // JPANEL VARIABLES
     
@@ -264,11 +269,10 @@ public class QuizGame implements ItemListener {
         JButton continueButton = new JButton("Continue Dialogue");
         
         // Images
-        BufferedImage alterEgoImage = ImageIO.read(new File("AlterEgo/alterego.png"));
+        alterEgoImage = ImageIO.read(new File("AlterEgo/alterego.png"));
         BufferedImage alterEgoNeutral = ImageIO.read(new File("AlterEgo/neutral.jpeg"));
-        //JLabel alterEgoImageLabel = new JLabel(new ImageIcon(alterEgoImage));
         
-        JLabel alterEgoImageLabel = new JLabel(new ImageIcon(alterEgoImage));
+        alterEgoImageLabel = new JLabel(new ImageIcon(alterEgoImage));
         
         // X, Y. Width, Height
         alterEgoImageLabel.setBounds(510, 150, 550, 300);
@@ -382,6 +386,7 @@ public class QuizGame implements ItemListener {
     
     /**
     * Read in the data from the database to the arrays.
+    * @param 
     */
     public void readData(String[] questions, String[] answers) {
         //System.out.println("First read: " + currentQuestion + 5);
@@ -432,9 +437,11 @@ public class QuizGame implements ItemListener {
           public void actionPerformed(ActionEvent e) {
               if(correctAnswer == 0) {
                   System.out.println("Button 1 is correct!");
+                  
                   score += 10;
                   updateScore(scoreCounter);
-
+                  
+                  correctAnswerAlterEgo(alterEgoImage);
               } else {
                   System.out.println("Button 1 is wrong!");
                   score -= 5;
@@ -516,6 +523,14 @@ public class QuizGame implements ItemListener {
     
     public void updateScore(JLabel scoreCounter) {
         scoreCounter.setText("<html><span style='font-size:30px;'>Score: " + String.valueOf(score) + "</html>");
+    }
+    
+    public void correctAnswerAlterEgo(BufferedImage alterEgoImage[], JLabel alterEgoImageLabel) {
+        //alterEgoImage
+    }
+    
+    public void wrongAnswerAlterEgo() {
+        
     }
     
     /**
