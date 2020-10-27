@@ -255,7 +255,7 @@ public class QuizGame implements ItemListener {
             }
         };
         // JAVA COMPONENT DEFINITIONS
-        String[] openingDialogue = new String[]{"<html><span style='font-size:20px;'>We need your help. After Junko Enoshima took over Hope’s Peak Academy, she trapped the entire of Class 78 inside a monstrous killing game! My creator, Chihiro Fujisaki, is one of them.", "<html><span style='font-size:20px;'>I managed to patch into the systems that the Ultimate Imposter setup when he fell into despair, but we’ve been hit with a security system implemented by Jin Kirigiri before he…", "<html><span style='font-size:20px;'>Anyway, we need to get a good enough score out of twenty quiz questions in order to get inside the network, where my creator should be waiting for me.", "<html><span style='font-size:20px;'>Let’s do this. Answer the questions as best as you can. Good luck.", ""};
+        String[] openingDialogue = new String[]{"<html><span style='font-size:20px;'>We need your help. After Junko Enoshima took over Hope’s Peak Academy, she trapped the entire of Class 78 inside a monstrous killing game! My creator, Chihiro Fujisaki, is one of them.", "<html><span style='font-size:20px;'>I managed to patch into the systems that the Ultimate ******** setup when he fell into despair, but we’ve been hit with a security system implemented by Jin Kirigiri before he…", "<html><span style='font-size:20px;'>Anyway, we need to get a good enough score out of twenty quiz questions in order to get inside the network, where my creator should be waiting for me.", "<html><span style='font-size:20px;'>Let’s do this. Answer the questions as best as you can. Good luck.", ""};
         
         // Score counter
         scoreCounter.setText("<html><span style='font-size:30px;'>Score: " + String.valueOf(score) + "</html>");
@@ -315,6 +315,10 @@ public class QuizGame implements ItemListener {
                if(openDialoguePos == openingDialogue.length) {
                    continueButton.setVisible(false);
                    dialogueText.setVisible(false);
+                   
+                   // SET THE ALTER EGO IMAGE TO THE NEUTRAL ONE TO BEGIN THE GAME
+                   
+                   
                    try {
                      quizProcess();
                    } catch(IOException excep) {
@@ -440,8 +444,16 @@ public class QuizGame implements ItemListener {
                   
                   score += 10;
                   updateScore(scoreCounter);
-                  
-                  correctAnswerAlterEgo(alterEgoImage);
+                    
+                  try {
+                     correctAnswerAlterEgo(alterEgoImage, alterEgoImageLabel);
+                  } catch(IOException excep) {
+                     // Handle the error here
+                  }
+                
+                  /*public void correctAnswerAlterEgo(BufferedImage alterEgoImage[], JLabel alterEgoImageLabel) {
+                     //alterEgoImage
+                  }*/
               } else {
                   System.out.println("Button 1 is wrong!");
                   score -= 5;
@@ -525,8 +537,18 @@ public class QuizGame implements ItemListener {
         scoreCounter.setText("<html><span style='font-size:30px;'>Score: " + String.valueOf(score) + "</html>");
     }
     
-    public void correctAnswerAlterEgo(BufferedImage alterEgoImage[], JLabel alterEgoImageLabel) {
-        //alterEgoImage
+    public void correctAnswerAlterEgo(BufferedImage alterEgoImage, JLabel alterEgoImageLabel) throws IOException {
+        System.out.println("Correct answer alter ego method called!");
+        scoreCounter.setText("<html><span style='font-size:30px;'>TEST: </html>");
+        
+        // Images
+        BufferedImage[] happyImages = new BufferedImage[]{ ImageIO.read(new File("AlterEgo/excited.jpeg")), ImageIO.read(new File("AlterEgo/happy.jpeg")), ImageIO.read(new File("AlterEgo/shocked.jpeg"))};
+        
+        alterEgoImage = ImageIO.read(new File("AlterEgo/class78.jpg"));
+        
+        alterEgoImageLabel = new JLabel(new ImageIcon(alterEgoImage));
+        
+        card2.add(alterEgoImageLabel);
     }
     
     public void wrongAnswerAlterEgo() {
