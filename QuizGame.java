@@ -48,6 +48,18 @@ public class QuizGame implements ItemListener {
     static BufferedImage alterEgoImage;
     
     static JLabel alterEgoImageLabel;
+    
+    // Game panel definitions
+        
+    // Alter ego dialogue text
+    static JLabel dialogueText;
+        
+    // Buttons
+    static JButton beginButton;
+    static JButton continueButton;
+        
+    // Images
+    //BufferedImage alterEgoNeutral = ImageIO.read(new File("AlterEgo/neutral.jpeg"));
 
     // JPANEL VARIABLES
     
@@ -261,12 +273,12 @@ public class QuizGame implements ItemListener {
         scoreCounter.setText("<html><span style='font-size:30px;'>Score: " + String.valueOf(score) + "</html>");
         
         // Alter ego dialogue text
-        JLabel dialogueText = new JLabel("");
+        dialogueText = new JLabel("");
         dialogueText.setText("<html><span style='font-size:20px;'>You’re...actually here? You survived. You're inside the first versions of the Neo World Program!</html>");
         
         // Buttons
-        JButton beginButton = new JButton("BEGIN THE GAME!");
-        JButton continueButton = new JButton("Continue Dialogue");
+        beginButton = new JButton("BEGIN THE GAME!");
+        continueButton = new JButton("Continue Dialogue");
         
         // Images
         alterEgoImage = ImageIO.read(new File("AlterEgo/alterego.png"));
@@ -549,6 +561,7 @@ public class QuizGame implements ItemListener {
         alterEgoImageLabel = new JLabel(new ImageIcon(alterEgoImage));
         
         card2.add(alterEgoImageLabel);
+        card2.remove(alterEgoImageLabel);
     }
     
     public void wrongAnswerAlterEgo() {
