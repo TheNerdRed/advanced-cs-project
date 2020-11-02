@@ -35,7 +35,7 @@ public class QuizGame implements ItemListener {
     static String[] answers = new String[80];
         
     // An integer list which stores the positions of each correct answer.
-    static int[] correctAnswers;
+    static int[] correctAnswers = new int[20];
         
     // Define answer buttons
     static JButton[] answerButtons = new JButton[4];
@@ -373,7 +373,7 @@ public class QuizGame implements ItemListener {
     }
     
     /**
-    * Initialise and setup the answer buttons and question text
+    * Initialise and setup the answer buttons and question text.
     */
     public void setupQuizUI(JButton[] answerButtons) {
         // Alter ego dialogue text
@@ -410,14 +410,29 @@ public class QuizGame implements ItemListener {
         questions[0] = "Question 1";
         questions[1] = "Question 2";
         
-        answers[0] = "Answer 1";
+        for(int i = 0; i < questions.length; i++) {
+            questions[i] = "Question " + (i + 1);
+        }
+        
+        for(int i = 0; i < answers.length; i++) {
+            answers[i] = "Answer" + (i + 1);
+        }
+        
+        for(int i = 0; i < correctAnswers.length; i+= 4) {
+            correctAnswers[i] = 1;
+            correctAnswers[i + 1] = 2;
+            correctAnswers[i + 2] = 3;
+            correctAnswers[i + 3] = 4;
+        }
+        
+        /*answers[0] = "Answer 1";
         answers[1] = "Answer 2";
         answers[2] = "Answer 3";
         answers[3] = "Answer 4";
         answers[4] = "Answer 5";
         answers[5] = "Answer 6";
         answers[6] = "Answer 7";
-        answers[7] = "Answer 8";
+        answers[7] = "Answer 8";*/
     }
     
     /**
@@ -427,17 +442,17 @@ public class QuizGame implements ItemListener {
     * Assign the next answers to the buttons
     */
     public void moveOntoNextQuestion(String questions[], String[] answers, JButton[] answerButtons) {
-        //System.out.println("Third read: " + currentQuestion + 15);
-        
-        System.out.println("Current question is " + questions[currentQuestion]);
+        System.out.println("-=-=-=-=-=-=-moveOntoNextQuestion-=-=-=-=-=-=-=-");
         String nextQuestion = questions[currentQuestion];
         questionText.setText(questions[currentQuestion]);
-        //String[] nextAnswers = new String[]{answers[currentAnswer]};
         
+        System.out.println("The current question is " + questions[currentQuestion]);
+        System.out.println("The current answer number is " + currentAnswer);
         answerButtons[0].setText(answers[currentAnswer]);
         answerButtons[1].setText(answers[currentAnswer + 1]);
         answerButtons[2].setText(answers[currentAnswer + 2]);
         answerButtons[3].setText(answers[currentAnswer + 3]);
+        System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         
     }
     
@@ -446,7 +461,8 @@ public class QuizGame implements ItemListener {
     * Check if the clicked answer was correct.
     */
     public void checkCorrectQuestion(JButton[] answerButtons) {
-        int correctAnswer = 0;
+        int correctAnswer = correctAnswers[currentQuestion];
+        System.out.println("Current correct answer is " + correctAnswer);
         
         answerButtons[0].addActionListener(new ActionListener() {
           @Override
@@ -462,10 +478,7 @@ public class QuizGame implements ItemListener {
                   } catch(IOException excep) {
                      // Handle the error here
                   }
-                
-                  /*public void correctAnswerAlterEgo(BufferedImage alterEgoImage[], JLabel alterEgoImageLabel) {
-                     //alterEgoImage
-                  }*/
+                  
               } else {
                   System.out.println("Button 1 is wrong!");
                   score -= 5;
@@ -476,6 +489,7 @@ public class QuizGame implements ItemListener {
               System.out.println("currentQuestion value is " + currentQuestion);
               currentAnswer += 4;
               
+              System.out.println("This is the quizLoop for button 1");
               quizLoop(questions, answers, answerButtons);
               
           }
@@ -497,6 +511,7 @@ public class QuizGame implements ItemListener {
               currentQuestion += 1;
               currentAnswer += 4;
               
+              System.out.println("This is the quizLoop for button 2");
               quizLoop(questions, answers, answerButtons);
               
           }
@@ -518,6 +533,7 @@ public class QuizGame implements ItemListener {
               currentQuestion += 1;
               currentAnswer += 4;
               
+              System.out.println("This is the quizLoop for button 3");
               quizLoop(questions, answers, answerButtons);
               
           }
@@ -539,6 +555,7 @@ public class QuizGame implements ItemListener {
               currentQuestion += 1;
               currentAnswer += 4;
               
+              System.out.println("This is the quizLoop for button 4");
               quizLoop(questions, answers, answerButtons);
               
           }
