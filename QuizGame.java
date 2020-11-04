@@ -309,14 +309,14 @@ public class QuizGame implements ItemListener {
         // BEGIN THE QUIZ GAME
         
         // Game begins when the button is clicked
-        beginButton.addActionListener(new ActionListener() {
+        /*beginButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
               beginButton.setVisible(false);
               continueButton.setVisible(true);
               dialogueText.setVisible(true);
           }
-        });
+        });*/
         
         // Continue the opening dialogue with the continue button, and immediately begin the quiz after the dialogue has finished.
         continueButton.addActionListener(new ActionListener() {
@@ -464,7 +464,7 @@ public class QuizGame implements ItemListener {
         int correctAnswer = correctAnswers[currentQuestion];
         System.out.println("Current correct answer is " + correctAnswer);
         
-        answerButtons[0].addActionListener(new ActionListener() {
+        /*answerButtons[0].addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
               if(correctAnswer == 0) {
@@ -493,73 +493,11 @@ public class QuizGame implements ItemListener {
               quizLoop(questions, answers, answerButtons);
               
           }
-        });
-        
-        answerButtons[1].addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-              if(correctAnswer == 1) {
-                  System.out.println("Button 2 is correct!");
-                  score += 10;
-                  updateScore(scoreCounter);
-              } else {
-                  System.out.println("Button 2 is wrong!");
-                  score -= 5;
-                  updateScore(scoreCounter);
-              }
-              
-              currentQuestion += 1;
-              currentAnswer += 4;
-              
-              System.out.println("This is the quizLoop for button 2");
-              quizLoop(questions, answers, answerButtons);
-              
-          }
-        });
-        
-        answerButtons[2].addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-              if(correctAnswer == 2) {
-                  System.out.println("Button 3 is correct!");
-                  score += 10;
-                  updateScore(scoreCounter);
-              } else {
-                  System.out.println("Button 3 is wrong!");
-                  score -= 5;
-                  updateScore(scoreCounter);
-              }
-              
-              currentQuestion += 1;
-              currentAnswer += 4;
-              
-              System.out.println("This is the quizLoop for button 3");
-              quizLoop(questions, answers, answerButtons);
-              
-          }
-        });
-        
-        answerButtons[3].addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-              if(correctAnswer == 3) {
-                  System.out.println("Button 4 is correct!");
-                  score += 10;
-                  updateScore(scoreCounter);
-              } else {
-                  System.out.println("Button 4 is wrong!");
-                  score -= 5;
-                  updateScore(scoreCounter);
-              }
-              
-              currentQuestion += 1;
-              currentAnswer += 4;
-              
-              System.out.println("This is the quizLoop for button 4");
-              quizLoop(questions, answers, answerButtons);
-              
-          }
-        });
+        });*/
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+
     }
     
     public void updateScore(JLabel scoreCounter) {
